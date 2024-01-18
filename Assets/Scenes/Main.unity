@@ -1550,6 +1550,19 @@ MonoBehaviour:
   cannonBallPrefab: {fileID: 4167100283851594074, guid: d66833a1c6f9df44fb4616a061c644b6,
     type: 3}
   cannonBallSpawnPoint: {fileID: 1081342303}
+  triggerAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Trigger
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 40afccd6-61f3-41fd-999c-e23e83763d71
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
   fireSpeed: 10
 --- !u!114 &201972680
 MonoBehaviour:
@@ -1723,7 +1736,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203190605}
   m_LocalRotation: {x: -0, y: 0.7105695, z: -0, w: 0.7036271}
-  m_LocalPosition: {x: -4.38, y: 5.74, z: -0.11}
+  m_LocalPosition: {x: -2.53, y: 5.54, z: -0.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16617,6 +16630,7 @@ GameObject:
   - component: {fileID: 543450651840195452}
   - component: {fileID: 3469287837771015385}
   - component: {fileID: 1711813854850994195}
+  - component: {fileID: 3469287837771015386}
   m_Layer: 0
   m_Name: Rotater
   m_TagString: Untagged
@@ -16734,6 +16748,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147834679750}
   m_Mesh: {fileID: -7105172057010161331, guid: 741304eabdb13ac42ba64bc491535ac1, type: 3}
+--- !u!114 &3469287837771015386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147834679750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1842f6191a8d6b8a5bbd39721f48d9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Rotater: {fileID: 0}
 --- !u!23 &3497690581540308783
 MeshRenderer:
   m_ObjectHideFlags: 0
