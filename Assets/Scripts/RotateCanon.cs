@@ -4,34 +4,45 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class RotateCanon : MonoBehaviour
 {
     public Transform Rotater; // Assurez-vous d'attribuer le transform de l'objet Rotater dans l'inspecteur Unity.
+    private XRSimpleInteractable interactable;
+    private bool isRotating = false;
+    private float onClickedAngle = 0f;
 
-    // Start is called before the first frame update
     void Start()
     {
-        XRSimpleInteractable interactable = GetComponent<XRSimpleInteractable>();
+        interactable = GetComponent<XRSimpleInteractable>();
         interactable.selectEntered.AddListener(OnSelectEnter);
+        interactable.selectExited.AddListener(OnSelectQuit);
+    }
+
+    void Update()
+    {
+        if (isRotating)
+        {
+            rotate(interactable.selectingInteractor);
+            onClickedAngle = interactable.selectingInteractor.transform.eulerAngles.y;
+        }
     }
 
     void OnSelectEnter(SelectEnterEventArgs args)
     {
-        print("Select");
-        rotate(args.interactor); // Passez l'interactor à la fonction rotate.
+        isRotating = true;
+    }
+
+    void OnSelectQuit(SelectExitEventArgs args)
+    {
+        isRotating = false;
     }
 
     void rotate(XRBaseInteractor interactor)
     {
-        // Assurez-vous que l'interactor n'est pas null
-        if (interactor != null)
-        {
-            // Obtenez la direction du contrôleur (vecteur avant)
-            Vector3 controllerForward = interactor.transform.forward;
+        // Get the angle of the interactor
+        float angle = interactor.transform.eulerAngles.y;
 
-            // Utilisez la direction pour faire tourner l'objet Rotater
-            Rotater.transform.LookAt(Rotater.transform.position + controllerForward);
+        // Calculate the rotation difference between the interactor and the Rotater
+        float rotationDifference = angle - onClickedAngle;
 
-            // Vous pouvez également effectuer d'autres actions en fonction de la direction
-            // par exemple, affichez la direction dans la console
-            Debug.Log("Direction du contrôleur : " + controllerForward);
-        }
+        // Rotate the Rotater horizontally based on the movement of the interactor
+        Rotater.Rotate(0, rotationDifference, 0);
     }
 }

@@ -15,8 +15,8 @@ public class FireCannon : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        float triggerValue = triggerAction.action.ReadValue<float>();
-        if (triggerValue > 0.5f)
+        // shoot once when trigger is pressed
+        if (triggerAction.action.triggered)
         {
             Fire();
         }
