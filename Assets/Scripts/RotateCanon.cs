@@ -27,6 +27,7 @@ public class RotateCanon : MonoBehaviour
     void OnSelectEnter(SelectEnterEventArgs args)
     {
         isRotating = true;
+        onClickedAngle = args.interactor.transform.eulerAngles.y;
     }
 
     void OnSelectQuit(SelectExitEventArgs args)
@@ -43,6 +44,6 @@ public class RotateCanon : MonoBehaviour
         float rotationDifference = angle - onClickedAngle;
 
         // Rotate the Rotater horizontally based on the movement of the interactor
-        Rotater.Rotate(0, rotationDifference, 0);
+        Rotater.Rotate(0, - rotationDifference, 0);
     }
 }
