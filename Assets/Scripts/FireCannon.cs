@@ -2,23 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.InputSystem;
 
 public class FireCannon : MonoBehaviour
 {
     public Rigidbody cannonBallPrefab;
     public Transform cannonBallSpawnPoint;
 
+    [SerializeField] private InputActionProperty triggerAction;
+
     public float fireSpeed =3.0f;
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
-        XRSimpleInteractable interactable = GetComponent<XRSimpleInteractable>();
-        interactable.selectEntered.AddListener(OnSelectEnter);
+        // shoot once when trigger is pressed
+        if (triggerAction.action.triggered)
+        {
+            Fire();
+        }
     }
 
     void OnSelectEnter(SelectEnterEventArgs ags)
     {
-        print("Select");
         Fire();
     }
 
@@ -38,8 +43,5 @@ public class FireCannon : MonoBehaviour
         Gizmos.DrawSphere(cannonBallSpawnPoint.position, 0.1f);
     }
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
