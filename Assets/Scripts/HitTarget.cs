@@ -20,6 +20,7 @@ public class HitTarget : MonoBehaviour
                 target.SetActive(false); // Deactivate the current target
                 targetBrokenPrefab.SetActive(true); // Activate the broken target
                 ApplyForceToBrokenParts(targetBrokenPrefab);
+                FindObjectOfType<SpawnManager>().IncrementScore();
                 FindObjectOfType<SpawnManager>().Spawn();
             }
         }
