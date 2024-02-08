@@ -6,7 +6,7 @@ public class PowderPotCollision : MonoBehaviour
     public GameObject exhaust;
     public Slider powderGauge; // Référence au Slider UI
     private float powderAmount = 0f; // Quantité actuelle de poudre, initialement 0
-    public float fillRate = 0.1f; // Taux de remplissage de la jauge par contact
+    public float fillRate = 0.3f; // Taux de remplissage de la jauge par contact
 
     private bool isTouchingExhaust = false;
 
@@ -45,5 +45,15 @@ public class PowderPotCollision : MonoBehaviour
             Debug.Log("Canon est complètement chargé !");
             // Ici, vous pouvez ajouter d'autres logiques spécifiques une fois la jauge pleine
         }
+    }
+    public void ResetPowderAmount()
+    {
+        powderAmount = 0f;
+        powderGauge.value = powderAmount;
+    }
+
+    public float GetPowderAmount()
+    {
+        return powderAmount;
     }
 }

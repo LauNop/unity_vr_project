@@ -8,10 +8,11 @@ public class FireCannon : MonoBehaviour
 {
     public Rigidbody cannonBallPrefab;
     public Transform cannonBallSpawnPoint;
+    public PowderPotCollision powderPotCollision;
 
     [SerializeField] private InputActionProperty triggerAction;
 
-    public float fireSpeed =3.0f;
+    public float fireSpeed =1f;
     // Start is called before the first frame update
     void Update()
     {
@@ -29,12 +30,23 @@ public class FireCannon : MonoBehaviour
 
     void Fire()
     {
-        Rigidbody newBall = Instantiate(cannonBallPrefab, null);
-        // Placer une boule à l'avant du canon
-        // newBall.transform
-        newBall.transform.position = cannonBallSpawnPoint.position;
-        // Déplacer la boule
-        newBall.velocity = transform.forward * fireSpeed;
+        if (cannonBallPrefab != null && powderPotCollision.GetPowderAmount() > 0f)
+        {
+            Rigidbody newBall = Instantiate(cannonBallPrefab, null);
+            newBall.transform.position = cannonBallSpawnPoint.position;
+            /* // Placer une boule à l'avant du canon
+            // newBall.transform
+
+            // Déplacer la boule
+            newBall.velocity = transform.forward * fireSpeed; */
+
+            // adjust fire speed
+            float adjustedFireSpeed = fireSpeed * (1+ 2*powderPotCollision.GetPowderAmount());
+            newBall.velocity = transform.forward * adjustedFireSpeed;
+
+            powderPotCollision.ResetPowderAmount();
+        }
+        
     }
 
     void OnDrawGizmos()

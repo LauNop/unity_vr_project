@@ -19,7 +19,6 @@ public class TurnCanon : MonoBehaviour
         interactable = GetComponent<XRSimpleInteractable>();
         interactable.selectEntered.AddListener(OnSelectEnter);
         interactable.selectExited.AddListener(OnSelectQuit);
-        currentControllerAngle = interactable.transform.rotation.eulerAngles;
     }
 
     void OnSelectEnter(SelectEnterEventArgs args)
@@ -47,6 +46,7 @@ public class TurnCanon : MonoBehaviour
 
     void rotate(XRBaseInteractor interactor)
     {
+        currentControllerAngle = interactable.selectingInteractor.transform.rotation.eulerAngles;
         // Get the center of the handle in world space
         Vector3 handleCenter = handle.transform.position;
 
