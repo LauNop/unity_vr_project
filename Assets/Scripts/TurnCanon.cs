@@ -10,6 +10,8 @@ public class TurnCanon : MonoBehaviour
     
     private XRSimpleInteractable interactable;
     private float previousAngle = 0;
+    private Vector3 currentControllerAngle = new Vector3();
+    private float previousControllerAngle;
     private bool isRotating = false;
     // Start is called before the first frame update
     void Start()
@@ -17,12 +19,14 @@ public class TurnCanon : MonoBehaviour
         interactable = GetComponent<XRSimpleInteractable>();
         interactable.selectEntered.AddListener(OnSelectEnter);
         interactable.selectExited.AddListener(OnSelectQuit);
+        currentControllerAngle = interactable.transform.rotation.eulerAngles;
     }
 
     void OnSelectEnter(SelectEnterEventArgs args)
     {
         // set isRotating to true when the rotation of the interactor changes
         isRotating = true;
+
     }
 
     void OnSelectQuit(SelectExitEventArgs args)
@@ -33,8 +37,7 @@ public class TurnCanon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        Vector3 currentControllerAngle = interactable.selectingInteractor.transform.rotation.eulerAngles;
-        Debug.Log(currentControllerAngle);
+        currentControllerAngle = interactable.selectingInteractor.transform.rotation.eulerAngles;
         if (currentControllerAngle.y != previousAngle && isRotating)
         {
             rotate(interactable.selectingInteractor);
