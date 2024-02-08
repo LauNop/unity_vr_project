@@ -7,7 +7,9 @@ public class TurnCanon : MonoBehaviour
 {
     public GameObject canon;
     public GameObject handle;
+    
     private XRSimpleInteractable interactable;
+    private float previousAngle = 0;
     private bool isRotating = false;
     // Start is called before the first frame update
     void Start()
@@ -19,6 +21,7 @@ public class TurnCanon : MonoBehaviour
 
     void OnSelectEnter(SelectEnterEventArgs args)
     {
+        // set isRotating to true when the rotation of the interactor changes
         isRotating = true;
     }
 
@@ -29,11 +32,14 @@ public class TurnCanon : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (isRotating)
+    {   
+        Vector3 currentControllerAngle = interactable.selectingInteractor.transform.rotation.eulerAngles;
+        Debug.Log(currentControllerAngle);
+        if (currentControllerAngle.y != previousAngle && isRotating)
         {
             rotate(interactable.selectingInteractor);
         }
+        previousAngle = currentControllerAngle.y;
     }
 
     void rotate(XRBaseInteractor interactor)
@@ -48,12 +54,19 @@ public class TurnCanon : MonoBehaviour
         interactorPos = handle.transform.TransformPoint(handleProj);
         
         Vector3 direction = interactorPos - handleCenter;
-        // rotate crank to direction
+        
+        // Rotate the crank to the specified direction
+        
         
         // Calculate the angle from the handle to the interactor's position
-        float angle = Vector3.SignedAngle(handle.transform.up, direction, handle.transform.forward);
+        float currentAngle = Vector3.SignedAngle(handle.transform.up, direction, handle.transform.forward);
+        float angle = currentAngle - previousAngle;
 
         // Rotate the handle around its center based on the calculated angle
         handle.transform.RotateAround(handleCenter, handle.transform.forward, angle);
+        canon.transform.RotateAround(handleCenter, handle.transform.forward, angle);
+        previousAngle = currentAngle;
     }
+
+
 }
